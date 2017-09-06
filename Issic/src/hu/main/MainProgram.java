@@ -1,16 +1,16 @@
 package hu.main;
 
-import javax.swing.SwingUtilities;
-
 import hu.working.gui.WorkingGui;
 
-public class MainProgram {
+public class MainProgram{
+	
 
 	public static void main(String[] args) {
-		SwingUtilities.invokeLater(new Runnable() {
-			@Override
+		java.awt.EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				new WorkingGui();
+				
+				
 			}
 		});
 

@@ -40,7 +40,7 @@ public class WorkingGui extends Gui {
 	protected JLabel jLblMothersNameGui;
 	protected JLabel jLblTitlesGui;
 	protected JLabel jLblHomeAddresGui;
-	protected JTextField txtHomeAddresGui;
+	protected JTextField txtCuntryAddresGui;
 	protected JTextField txtZipCodeGui;
 	protected JTextField txtSettlementGui;
 	protected JTextField txtTitleGui;
@@ -84,7 +84,6 @@ public class WorkingGui extends Gui {
 	protected JButton btnDeleteWorkingGui;
 	private JTextField textField;
 	private JTabbedPane tabbedPane;
-	private JPanel panel;
 	private JPanel jPnlDocumentWorkingGui;
 	private JPanel panel_2;
 	private JPanel panel_3;
@@ -94,7 +93,7 @@ public class WorkingGui extends Gui {
 	private JLabel jLblTaxIDWorkingGui;
 	private JLabel jLblDrivingLicenseWorkingGui;
 	private JLabel jLblPassportWorkingGui;
-	private JTextField txtDCardWorkingGui;
+	private JTextField txtIDCardWorkingGui;
 	private JTextField txtHealthCardWorkingGui;
 	private JTextField txtTaxIDWorkingGui;
 	private JTextField txtDrivingLicenseWorkingGui;
@@ -236,11 +235,11 @@ public class WorkingGui extends Gui {
 		jLblTitleGui.setBounds(280, 284, 114, 20);
 		jPnlWorkingGui.add(jLblTitleGui);
 
-		txtHomeAddresGui = new JTextField();
-		txtHomeAddresGui.setFont(new Font("Tahoma", Font.BOLD, 12));
-		txtHomeAddresGui.setColumns(10);
-		txtHomeAddresGui.setBounds(392, 237, 276, 25);
-		jPnlWorkingGui.add(txtHomeAddresGui);
+		txtCuntryAddresGui = new JTextField();
+		txtCuntryAddresGui.setFont(new Font("Tahoma", Font.BOLD, 12));
+		txtCuntryAddresGui.setColumns(10);
+		txtCuntryAddresGui.setBounds(392, 237, 276, 25);
+		jPnlWorkingGui.add(txtCuntryAddresGui);
 
 		txtZipCodeGui = new JTextField();
 		txtZipCodeGui.setFont(new Font("Tahoma", Font.BOLD, 12));
@@ -413,10 +412,6 @@ public class WorkingGui extends Gui {
 		txtEntryGui.setBounds(791, 139, 179, 25);
 		jPnlWorkingGui.add(txtEntryGui);
 
-		panel = new JPanel();
-		panel.setBounds(0, 0, 10, 10);
-		jPnlWorkingGui.add(panel);
-
 		txtEgressGui = new JTextField();
 		txtEgressGui.setFont(new Font("Tahoma", Font.BOLD, 12));
 		txtEgressGui.setColumns(10);
@@ -524,11 +519,11 @@ public class WorkingGui extends Gui {
 		jLblPassportWorkingGui.setBounds(21, 139, 108, 20);
 		jPnlDocumentWorkingGui.add(jLblPassportWorkingGui);
 
-		txtDCardWorkingGui = new JTextField();
-		txtDCardWorkingGui.setFont(new Font("Tahoma", Font.BOLD, 12));
-		txtDCardWorkingGui.setColumns(10);
-		txtDCardWorkingGui.setBounds(126, 21, 179, 25);
-		jPnlDocumentWorkingGui.add(txtDCardWorkingGui);
+		txtIDCardWorkingGui = new JTextField();
+		txtIDCardWorkingGui.setFont(new Font("Tahoma", Font.BOLD, 12));
+		txtIDCardWorkingGui.setColumns(10);
+		txtIDCardWorkingGui.setBounds(126, 21, 179, 25);
+		jPnlDocumentWorkingGui.add(txtIDCardWorkingGui);
 
 		txtHealthCardWorkingGui = new JTextField();
 		txtHealthCardWorkingGui.setFont(new Font("Tahoma", Font.BOLD, 12));

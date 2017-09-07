@@ -1,7 +1,7 @@
 package hu.main;
 
 import hu.gui.Gui;
-import hu.working.Working;
+import hu.working.JDBCWorkingSetDAO;
 
 public class MainProgram{
 	
@@ -29,7 +29,7 @@ public class MainProgram{
 		}
 		java.awt.EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				new Working().setVisible(true);;
+				new JDBCWorkingSetDAO().setVisible(true);;
 			}
 		});
 

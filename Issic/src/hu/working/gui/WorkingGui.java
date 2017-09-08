@@ -21,7 +21,7 @@ import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
 public class WorkingGui extends Gui {
-	protected JTable tblWorking;
+	protected static JTable tblWorking;
 	protected JScrollPane scrlPaneWorkingGui;
 	protected JLabel jLblWorkingGui;
 	protected JLabel jLblWorkingImageGui;
@@ -423,24 +423,24 @@ public class WorkingGui extends Gui {
 		txtPostGui.setColumns(10);
 		txtPostGui.setBounds(791, 197, 179, 25);
 		jPnlWorkingGui.add(txtPostGui);
+				
+						txtOrganizationMobilPhoneGui = new JTextField();
+						txtOrganizationMobilPhoneGui.setFont(new Font("Tahoma", Font.BOLD, 12));
+						txtOrganizationMobilPhoneGui.setColumns(10);
+						txtOrganizationMobilPhoneGui.setBounds(791, 313, 179, 25);
+						jPnlWorkingGui.add(txtOrganizationMobilPhoneGui);
+		
+				txtOganizationLandlinePhoneGui = new JTextField();
+				txtOganizationLandlinePhoneGui.setFont(new Font("Tahoma", Font.BOLD, 12));
+				txtOganizationLandlinePhoneGui.setColumns(10);
+				txtOganizationLandlinePhoneGui.setBounds(791, 284, 179, 25);
+				jPnlWorkingGui.add(txtOganizationLandlinePhoneGui);
 
 		txtClassGui = new JTextField();
 		txtClassGui.setFont(new Font("Tahoma", Font.BOLD, 12));
 		txtClassGui.setColumns(10);
 		txtClassGui.setBounds(791, 255, 179, 25);
 		jPnlWorkingGui.add(txtClassGui);
-
-		txtOganizationLandlinePhoneGui = new JTextField();
-		txtOganizationLandlinePhoneGui.setFont(new Font("Tahoma", Font.BOLD, 12));
-		txtOganizationLandlinePhoneGui.setColumns(10);
-		txtOganizationLandlinePhoneGui.setBounds(791, 284, 179, 25);
-		jPnlWorkingGui.add(txtOganizationLandlinePhoneGui);
-
-		txtOrganizationMobilPhoneGui = new JTextField();
-		txtOrganizationMobilPhoneGui.setFont(new Font("Tahoma", Font.BOLD, 12));
-		txtOrganizationMobilPhoneGui.setColumns(10);
-		txtOrganizationMobilPhoneGui.setBounds(791, 313, 179, 25);
-		jPnlWorkingGui.add(txtOrganizationMobilPhoneGui);
 
 		txtOrganizationEmailGui = new JTextField();
 		txtOrganizationEmailGui.setFont(new Font("Tahoma", Font.BOLD, 12));
@@ -466,7 +466,7 @@ public class WorkingGui extends Gui {
 		btnDeleteWorkingGui.setBounds(1009, 99, 113, 33);
 		jPnlWorkingGui.add(btnDeleteWorkingGui);
 
-		tblWorking.setModel(new javax.swing.table.DefaultTableModel(new Object[][] {}, new String[] { "Partner név" }));
+		
 
 		textField = new JTextField();
 		textField.setFont(new Font("Tahoma", Font.BOLD, 12));
@@ -554,9 +554,11 @@ public class WorkingGui extends Gui {
 
 		panel_3 = new JPanel();
 		tabbedPane.addTab("Tanfolyamok", null, panel_3, null);
+		
+		tblWorking.setModel(new javax.swing.table.DefaultTableModel(new Object[][] {}, new String[] { "Partner név" }));
 	}
 
 	public static void iniComponent() {
-
+		
 	}
 }

@@ -8,13 +8,14 @@ import java.util.logging.Logger;
 
 public class WorkingDB {
 	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-	static final String DB_URL = "jdbc:mysql://localhost/zrt";
+	static final String DB_URL = "jdbc:mysql://localhost/issic";
 	static final String USER = "root";
 	static final String PASS = "12345";
+
 	public WorkingDB() {
-		
+
 	}
-	
+
 	protected static Connection getConnection() {
 		Connection con = null;
 		try {

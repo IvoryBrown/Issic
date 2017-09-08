@@ -6,8 +6,9 @@ import java.awt.Font;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JRadioButton;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -16,8 +17,6 @@ import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
 import hu.gui.Gui;
-import javax.swing.JTabbedPane;
-import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
 public class WorkingGui extends Gui {
@@ -33,7 +32,6 @@ public class WorkingGui extends Gui {
 	protected JTextField txtIDGui;
 	protected JTextField txtMaidenNameGui;
 	protected JTextField txtMothersNameGui;
-	protected JRadioButton jRdBtnManGui, jRdBtnWomanGui;
 	protected Border a;
 	protected JLabel jLblDGui;
 	protected JLabel jLblMaidenNameGui;
@@ -71,16 +69,16 @@ public class WorkingGui extends Gui {
 	protected JLabel jLblOrganizationMobilPhoneGui;
 	protected JLabel jLblOrganizationEmailGui;
 	protected JLabel jLblActivityGui;
-	protected JTextField txtEntryGui;
-	protected JTextField txtEgressGui;
+	protected JTextField txtAddDate;
+	protected JTextField txtExitDate;
 	protected JTextField txtPostGui;
-	protected JTextField txtClassGui;
 	protected JTextField txtOganizationLandlinePhoneGui;
 	protected JTextField txtOrganizationMobilPhoneGui;
 	protected JTextField txtOrganizationEmailGui;
+	protected JTextField txtClassGui;
 	protected JTextField txtActivityGui;
 	protected JButton btnNewWorkingGui;
-	protected JButton btnEditingWorkingGui;
+	protected  JButton btnEditingWorkingGui;
 	protected JButton btnDeleteWorkingGui;
 	private JTextField textField;
 	private JTabbedPane tabbedPane;
@@ -98,6 +96,7 @@ public class WorkingGui extends Gui {
 	private JTextField txtTaxIDWorkingGui;
 	private JTextField txtDrivingLicenseWorkingGui;
 	private JTextField txtPassportWorkingGui;
+	protected JTextField txtGenderGui;
 
 	public WorkingGui() {
 		jTbdPaneGui.setFont(new Font("Tahoma", Font.PLAIN, 13));
@@ -114,7 +113,7 @@ public class WorkingGui extends Gui {
 		scrlPaneWorkingGui.setViewportView(tblWorking);
 
 		jLblWorkingGui = new javax.swing.JLabel();
-		jLblWorkingGui.setBounds(237, 5, 449, 205);
+		jLblWorkingGui.setBounds(243, 5, 449, 205);
 		jPnlWorkingGui.add(jLblWorkingGui);
 		a = BorderFactory.createLineBorder(Color.DARK_GRAY);
 		a = BorderFactory.createTitledBorder(a, "Partner adatok", TitledBorder.LEFT, TitledBorder.TOP);
@@ -174,16 +173,12 @@ public class WorkingGui extends Gui {
 		txtDateOfBirthGui.setColumns(10);
 		txtDateOfBirthGui.setBounds(367, 56, 179, 25);
 		jPnlWorkingGui.add(txtDateOfBirthGui);
-
-		jRdBtnWomanGui = new JRadioButton("Nő");
-		jRdBtnWomanGui.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		jRdBtnWomanGui.setBounds(388, 84, 44, 23);
-		jPnlWorkingGui.add(jRdBtnWomanGui);
-
-		jRdBtnManGui = new JRadioButton("Férfi");
-		jRdBtnManGui.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		jRdBtnManGui.setBounds(458, 84, 60, 23);
-		jPnlWorkingGui.add(jRdBtnManGui);
+		
+		txtGenderGui = new JTextField();
+		txtGenderGui.setFont(new Font("Tahoma", Font.BOLD, 12));
+		txtGenderGui.setColumns(10);
+		txtGenderGui.setBounds(367, 85, 179, 25);
+		jPnlWorkingGui.add(txtGenderGui);
 
 		txtIDGui = new JTextField();
 		txtIDGui.setFont(new Font("Tahoma", Font.BOLD, 12));
@@ -406,46 +401,46 @@ public class WorkingGui extends Gui {
 		jLblActivityGui.setBounds(685, 340, 108, 20);
 		jPnlWorkingGui.add(jLblActivityGui);
 
-		txtEntryGui = new JTextField();
-		txtEntryGui.setFont(new Font("Tahoma", Font.BOLD, 12));
-		txtEntryGui.setColumns(10);
-		txtEntryGui.setBounds(791, 139, 179, 25);
-		jPnlWorkingGui.add(txtEntryGui);
+		txtAddDate = new JTextField();
+		txtAddDate.setFont(new Font("Tahoma", Font.BOLD, 12));
+		txtAddDate.setColumns(10);
+		txtAddDate.setBounds(791, 139, 179, 25);
+		jPnlWorkingGui.add(txtAddDate);
 
-		txtEgressGui = new JTextField();
-		txtEgressGui.setFont(new Font("Tahoma", Font.BOLD, 12));
-		txtEgressGui.setColumns(10);
-		txtEgressGui.setBounds(791, 168, 179, 25);
-		jPnlWorkingGui.add(txtEgressGui);
+		txtExitDate = new JTextField();
+		txtExitDate.setFont(new Font("Tahoma", Font.BOLD, 12));
+		txtExitDate.setColumns(10);
+		txtExitDate.setBounds(791, 168, 179, 25);
+		jPnlWorkingGui.add(txtExitDate);
 
 		txtPostGui = new JTextField();
 		txtPostGui.setFont(new Font("Tahoma", Font.BOLD, 12));
 		txtPostGui.setColumns(10);
 		txtPostGui.setBounds(791, 197, 179, 25);
 		jPnlWorkingGui.add(txtPostGui);
-				
-						txtOrganizationMobilPhoneGui = new JTextField();
-						txtOrganizationMobilPhoneGui.setFont(new Font("Tahoma", Font.BOLD, 12));
-						txtOrganizationMobilPhoneGui.setColumns(10);
-						txtOrganizationMobilPhoneGui.setBounds(791, 313, 179, 25);
-						jPnlWorkingGui.add(txtOrganizationMobilPhoneGui);
-		
-				txtOganizationLandlinePhoneGui = new JTextField();
-				txtOganizationLandlinePhoneGui.setFont(new Font("Tahoma", Font.BOLD, 12));
-				txtOganizationLandlinePhoneGui.setColumns(10);
-				txtOganizationLandlinePhoneGui.setBounds(791, 284, 179, 25);
-				jPnlWorkingGui.add(txtOganizationLandlinePhoneGui);
 
 		txtClassGui = new JTextField();
 		txtClassGui.setFont(new Font("Tahoma", Font.BOLD, 12));
 		txtClassGui.setColumns(10);
-		txtClassGui.setBounds(791, 255, 179, 25);
+		txtClassGui.setBounds(791, 226, 179, 25);
 		jPnlWorkingGui.add(txtClassGui);
+
+		txtOganizationLandlinePhoneGui = new JTextField();
+		txtOganizationLandlinePhoneGui.setFont(new Font("Tahoma", Font.BOLD, 12));
+		txtOganizationLandlinePhoneGui.setColumns(10);
+		txtOganizationLandlinePhoneGui.setBounds(791, 255, 179, 25);
+		jPnlWorkingGui.add(txtOganizationLandlinePhoneGui);
+
+		txtOrganizationMobilPhoneGui = new JTextField();
+		txtOrganizationMobilPhoneGui.setFont(new Font("Tahoma", Font.BOLD, 12));
+		txtOrganizationMobilPhoneGui.setColumns(10);
+		txtOrganizationMobilPhoneGui.setBounds(791, 284, 179, 25);
+		jPnlWorkingGui.add(txtOrganizationMobilPhoneGui);
 
 		txtOrganizationEmailGui = new JTextField();
 		txtOrganizationEmailGui.setFont(new Font("Tahoma", Font.BOLD, 12));
 		txtOrganizationEmailGui.setColumns(10);
-		txtOrganizationEmailGui.setBounds(791, 226, 179, 25);
+		txtOrganizationEmailGui.setBounds(791, 313, 179, 25);
 		jPnlWorkingGui.add(txtOrganizationEmailGui);
 
 		txtActivityGui = new JTextField();
@@ -465,8 +460,6 @@ public class WorkingGui extends Gui {
 		btnDeleteWorkingGui = new JButton("Törlés");
 		btnDeleteWorkingGui.setBounds(1009, 99, 113, 33);
 		jPnlWorkingGui.add(btnDeleteWorkingGui);
-
-		
 
 		textField = new JTextField();
 		textField.setFont(new Font("Tahoma", Font.BOLD, 12));
@@ -554,11 +547,11 @@ public class WorkingGui extends Gui {
 
 		panel_3 = new JPanel();
 		tabbedPane.addTab("Tanfolyamok", null, panel_3, null);
-		
+
 		tblWorking.setModel(new javax.swing.table.DefaultTableModel(new Object[][] {}, new String[] { "Partner név" }));
 	}
 
 	public static void iniComponent() {
-		
+
 	}
 }

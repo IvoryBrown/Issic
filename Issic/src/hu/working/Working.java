@@ -17,9 +17,6 @@ public class Working {
 		this.workingID = wWorkingId;
 		this.workingName = wWorkingName;
 		this.zipCode = wZipCode;
-		this.letterZipCode = wLetterZipCode;
-		this.healthCard = wHealthCard;
-		this.taxID = wTaxID;
 		this.maidenName = wMaidenName;
 		this.gender = wGender;
 		this.dateOfBirth = wDateOfBirth;
@@ -27,23 +24,26 @@ public class Working {
 		this.privatePhone = wPrivatePhone;
 		this.privateMobil = wPrivateMobil;
 		this.privateEmail = wPrivateEmail;
-		this.cuntry = wCuntry;
-		this.settlement = wSettlement;
-		this.title = wTitle;
-		this.letterContry = wLetterContry;
-		this.letterSettlement = wLetterSettlement;
-		this.letterTitle = wLetterTitle;
-		this.addDate = wAddDate;
-		this.exitDate = wExitDate;
-		this.post = wPost;
-		this.classWorking = wClassWorking;
-		this.oganizationLandlinePhone = wOganizationLandlinePhone;
-		this.oganizationMobilPhone = wOganizationMobilPhone;
-		this.oganizationEmail = wOanizationEmail;
-		this.activity = wActivity;
-		this.iDCard = wIDCard;
-		this.drivingLicense = wDivingLicense;
-		this.passport = wPassport;
+		// this.letterZipCode = wLetterZipCode;
+		// this.healthCard = wHealthCard;
+		// this.taxID = wTaxID;
+		// this.cuntry = wCuntry;
+		// this.settlement = wSettlement;
+		// this.title = wTitle;
+		// this.letterContry = wLetterContry;
+		// this.letterSettlement = wLetterSettlement;
+		// this.letterTitle = wLetterTitle;
+		// this.addDate = wAddDate;
+		// this.exitDate = wExitDate;
+		// this.post = wPost;
+		// this.classWorking = wClassWorking;
+		// this.oganizationLandlinePhone = wOganizationLandlinePhone;
+		// this.oganizationMobilPhone = wOganizationMobilPhone;
+		// this.oganizationEmail = wOanizationEmail;
+		// this.activity = wActivity;
+		// this.iDCard = wIDCard;
+		// this.drivingLicense = wDivingLicense;
+		// this.passport = wPassport;
 	}
 
 	public Integer getWorkingID() {

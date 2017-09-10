@@ -7,16 +7,20 @@ public class Working {
 			classWorking, oganizationLandlinePhone, oganizationMobilPhone, oganizationEmail, activity, iDCard,
 			drivingLicense, passport;
 
-	public Working(Integer wWorkingId, String wWorkingName, Integer wZipCode, String wMaidenName, String wGender,
-			String wDateOfBirth, String wMothersName, String wPrivatePhone, String wPrivateMobil, String wPrivateEmail,
-			String wCuntry, String wSettlement, String wTitle, Integer wLetterZipCode, String wLetterContry,
-			String wLetterSettlement, String wLetterTitle, String wAddDate, String wExitDate, String wPost,
-			String wClassWorking, String wActivity, String wOganizationLandlinePhone, String wOganizationMobilPhone,
-			String wOanizationEmail, String wIDCard, Integer wHealthCard, Integer wTaxID, String wDivingLicense,
-			String wPassport) {
+	public Working(Integer wWorkingId, String wWorkingName, String wMaidenName, String wGender, String wDateOfBirth,
+			String wMothersName, String wPrivatePhone, String wPrivateMobil, String wPrivateEmail, Integer wZipCode,
+			String wCuntry, String wSettlement, String wTitle
+	// Integer wLetterZipCode, String wLetterContry,
+	// String wLetterSettlement, String wLetterTitle, String wAddDate, String
+	// wExitDate, String wPost,
+	// String wClassWorking, String wActivity, String wOganizationLandlinePhone,
+	// String wOganizationMobilPhone,
+	// String wOanizationEmail, String wIDCard, Integer wHealthCard, Integer
+	// wTaxID, String wDivingLicense,
+	// String wPassport
+	) {
 		this.workingID = wWorkingId;
 		this.workingName = wWorkingName;
-		this.zipCode = wZipCode;
 		this.maidenName = wMaidenName;
 		this.gender = wGender;
 		this.dateOfBirth = wDateOfBirth;
@@ -24,12 +28,13 @@ public class Working {
 		this.privatePhone = wPrivatePhone;
 		this.privateMobil = wPrivateMobil;
 		this.privateEmail = wPrivateEmail;
+		this.zipCode = wZipCode;
+		this.cuntry = wCuntry;
+		this.settlement = wSettlement;
+		this.title = wTitle;
 		// this.letterZipCode = wLetterZipCode;
 		// this.healthCard = wHealthCard;
 		// this.taxID = wTaxID;
-		// this.cuntry = wCuntry;
-		// this.settlement = wSettlement;
-		// this.title = wTitle;
 		// this.letterContry = wLetterContry;
 		// this.letterSettlement = wLetterSettlement;
 		// this.letterTitle = wLetterTitle;

@@ -20,7 +20,7 @@ import hu.gui.Gui;
 
 @SuppressWarnings("serial")
 public class WorkingGui extends Gui {
-	protected static JTable tblWorking;
+	protected JTable tblWorking;
 	protected JScrollPane scrlPaneWorkingGui;
 	protected JLabel jLblWorkingGui;
 	protected JLabel jLblWorkingImageGui;
@@ -78,8 +78,9 @@ public class WorkingGui extends Gui {
 	protected JTextField txtClassGui;
 	protected JTextField txtActivityGui;
 	protected JButton btnNewWorkingGui;
-	protected  JButton btnEditingWorkingGui;
+	protected JButton btnEditingWorkingGui;
 	protected JButton btnDeleteWorkingGui;
+	protected JButton btnDeleteShowWorkingGui;
 	private JTextField textField;
 	private JTabbedPane tabbedPane;
 	private JPanel jPnlDocumentWorkingGui;
@@ -173,7 +174,7 @@ public class WorkingGui extends Gui {
 		txtDateOfBirthGui.setColumns(10);
 		txtDateOfBirthGui.setBounds(367, 56, 179, 25);
 		jPnlWorkingGui.add(txtDateOfBirthGui);
-		
+
 		txtGenderGui = new JTextField();
 		txtGenderGui.setFont(new Font("Tahoma", Font.BOLD, 12));
 		txtGenderGui.setColumns(10);
@@ -454,11 +455,11 @@ public class WorkingGui extends Gui {
 		jPnlWorkingGui.add(btnNewWorkingGui);
 
 		btnEditingWorkingGui = new JButton("Szerkesztés");
-		btnEditingWorkingGui.setBounds(1009, 55, 113, 33);
+		btnEditingWorkingGui.setBounds(1009, 54, 113, 33);
 		jPnlWorkingGui.add(btnEditingWorkingGui);
 
 		btnDeleteWorkingGui = new JButton("Törlés");
-		btnDeleteWorkingGui.setBounds(1009, 99, 113, 33);
+		btnDeleteWorkingGui.setBounds(1009, 143, 113, 33);
 		jPnlWorkingGui.add(btnDeleteWorkingGui);
 
 		textField = new JTextField();
@@ -549,6 +550,10 @@ public class WorkingGui extends Gui {
 		tabbedPane.addTab("Tanfolyamok", null, panel_3, null);
 
 		tblWorking.setModel(new javax.swing.table.DefaultTableModel(new Object[][] {}, new String[] { "Partner név" }));
+
+		btnDeleteShowWorkingGui = new JButton("Null");
+		btnDeleteShowWorkingGui.setBounds(1009, 98, 113, 33);
+		jPnlWorkingGui.add(btnDeleteShowWorkingGui);
 	}
 
 	public static void iniComponent() {

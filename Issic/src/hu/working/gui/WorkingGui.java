@@ -55,9 +55,9 @@ public class WorkingGui extends Gui {
 	protected JLabel jLblLetterTitleGui;
 	protected JLabel jLblCommunicationGui;
 	protected JLabel jLblPrivateLandlinePhoneGui;
-	protected JTextField txtPrivateLandlinePhoneGui;
-	protected JLabel jLblPrivateMobilPhoneGui;
 	protected JTextField txtPrivateMobilPhoneGui;
+	protected JLabel jLblPrivateMobilPhoneGui;
+	protected JTextField txtPrivateLandlinePhoneGui;
 	protected JTextField txtPrivateEmailGui;
 	protected JLabel jLblPrivateEmailGui;
 	protected JLabel jLblInstitutionGui;
@@ -332,14 +332,14 @@ public class WorkingGui extends Gui {
 		txtPrivateLandlinePhoneGui = new JTextField();
 		txtPrivateLandlinePhoneGui.setFont(new Font("Tahoma", Font.BOLD, 12));
 		txtPrivateLandlinePhoneGui.setColumns(10);
-		txtPrivateLandlinePhoneGui.setBounds(791, 54, 179, 25);
+		txtPrivateLandlinePhoneGui.setBounds(791, 23, 179, 25);
 		jPnlWorkingGui.add(txtPrivateLandlinePhoneGui);
-
-		txtPrivateMobilPhoneGui = new JTextField();
-		txtPrivateMobilPhoneGui.setFont(new Font("Tahoma", Font.BOLD, 12));
-		txtPrivateMobilPhoneGui.setColumns(10);
-		txtPrivateMobilPhoneGui.setBounds(791, 23, 179, 25);
-		jPnlWorkingGui.add(txtPrivateMobilPhoneGui);
+		
+				txtPrivateMobilPhoneGui = new JTextField();
+				txtPrivateMobilPhoneGui.setFont(new Font("Tahoma", Font.BOLD, 12));
+				txtPrivateMobilPhoneGui.setColumns(10);
+				txtPrivateMobilPhoneGui.setBounds(791, 54, 179, 25);
+				jPnlWorkingGui.add(txtPrivateMobilPhoneGui);
 
 		txtPrivateEmailGui = new JTextField();
 		txtPrivateEmailGui.setFont(new Font("Tahoma", Font.BOLD, 12));

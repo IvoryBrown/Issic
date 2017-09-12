@@ -64,7 +64,22 @@ public class JDBCWorkingSetDAO extends WorkingGui implements WorkingDAO {
 	public boolean checkInputs() {
 		if (txtIDGui.getText().trim().isEmpty() || txtNameGui.getText().trim().isEmpty()
 				|| txtGenderGui.getText().trim().isEmpty() || txtDateOfBirthGui.getText().trim().isEmpty()
-				|| txtMothersNameGui.getText().trim().isEmpty() || txtPrivateMobilPhoneGui.getText().trim().isEmpty()) {
+				|| txtMothersNameGui.getText().trim().isEmpty() || txtPrivateMobilPhoneGui.getText().trim().isEmpty()
+				|| txtCuntryAddresGui.getText().trim().isEmpty() || txtZipCodeGui.getText().trim().isEmpty()
+				|| txtSettlementGui.getText().trim().isEmpty() || txtTitleGui.getText().trim().isEmpty()) {
+
+			return false;
+		} else {
+			try {
+				return true;
+			} catch (Exception ex) {
+				return false;
+			}
+		}
+	}
+
+	public boolean checkEmailInputs() {
+		if (txtPrivateEmailGui.getText().isEmpty()) {
 			return false;
 		} else {
 			try {
@@ -79,7 +94,7 @@ public class JDBCWorkingSetDAO extends WorkingGui implements WorkingDAO {
 	public ArrayList<Working> getProductList() {
 		ArrayList<Working> productList = new ArrayList<Working>();
 		Connection con = WorkingDB.getConnection();
-		String QUERY = "SELECT * FROM dolgozok";
+		String QUERY = "SELECT * FROM dolgozok " + "INNER JOIN lakcím ON (Dolgozok_Dolgozo_ID=Dolgozo_ID) ";
 		Statement st;
 		ResultSet rs;
 		try {
@@ -90,8 +105,9 @@ public class JDBCWorkingSetDAO extends WorkingGui implements WorkingDAO {
 				product = new Working(rs.getInt("Dolgozo_ID"), rs.getString("Név"), rs.getString("Leánykori_név"),
 						rs.getString("Neme"), rs.getString("Születési_dátum"), rs.getString("Anyja_neve"),
 						rs.getString("Magántelefon"), rs.getString("Magán_mobil"), rs.getString("Magán_email"),
-						rs.getInt("Irányítószám_ID"), rs.getString("Ország"), rs.getString("Település"),
+						rs.getInt("Irányítószám"), rs.getString("Ország"), rs.getString("Település"),
 						rs.getString("Cím")
+
 				// , rs.getInt("Irányítószám"),
 				// rs.getString("Ország"),
 				// rs.getString("Település"), rs.getString("Cím"),
@@ -127,7 +143,6 @@ public class JDBCWorkingSetDAO extends WorkingGui implements WorkingDAO {
 	public void ShowItem(int index) {
 		txtIDGui.setText(Integer.toString(getProductList().get(index).getWorkingID()));
 		txtNameGui.setText(getProductList().get(index).getWorkingName());
-		txtZipCodeGui.setText(Integer.toString(getProductList().get(index).getZipCode()));
 		txtMaidenNameGui.setText(getProductList().get(index).getMaidenName());
 		txtGenderGui.setText(getProductList().get(index).getGender());
 		txtDateOfBirthGui.setText(getProductList().get(index).getDateOfBirth());
@@ -157,13 +172,17 @@ public class JDBCWorkingSetDAO extends WorkingGui implements WorkingDAO {
 				inserinto.setString(6, txtMothersNameGui.getText());
 				inserinto.setString(7, txtPrivateLandlinePhoneGui.getText());
 				inserinto.setString(8, txtPrivateMobilPhoneGui.getText());
-				Boolean b = txtPrivateEmailGui.getText().matches(EMAIL_REGEX);
-				if (b) {
-					inserinto.setString(9, txtPrivateEmailGui.getText());
-				} else {
-					JOptionPane.showMessageDialog(null, "Nem megfelelő email cím");
-				}
+				inserinto.setString(9, txtPrivateEmailGui.getText());
+				PreparedStatement inserintos = con
+						.prepareStatement("INSERT INTO lakcím(Dolgozok_Dolgozo_ID,Irányítószám,Ország,Település,cím)"
+								+ "values(?,?,?,?,?) ");
+				inserintos.setString(1, txtIDGui.getText());
+				inserintos.setString(2, txtZipCodeGui.getText());
+				inserintos.setString(3, txtCuntryAddresGui.getText());
+				inserintos.setString(4, txtSettlementGui.getText());
+				inserintos.setString(5, txtTitleGui.getText());
 				inserinto.executeUpdate();
+				inserintos.executeUpdate();
 				Show_Products_In_JTable();
 				JOptionPane.showMessageDialog(null, "Adatok beillesztve");
 			} catch (SQLException ex) {
@@ -172,6 +191,16 @@ public class JDBCWorkingSetDAO extends WorkingGui implements WorkingDAO {
 		} else {
 			JOptionPane.showMessageDialog(null, "Egy vagy több mező üres");
 		}
+		System.out.println("TXT");
+		System.out.println(txtIDGui.getText());
+		System.out.println(txtNameGui.getText());
+		System.out.println(txtMaidenNameGui.getText());
+		System.out.println(txtGenderGui.getText());
+		System.out.println(txtDateOfBirthGui.getText());
+		System.out.println(txtMothersNameGui.getText());
+		System.out.println(txtPrivateLandlinePhoneGui.getText());
+		System.out.println(txtPrivateMobilPhoneGui.getText());
+		System.out.println(txtPrivateEmailGui.getText());
 	}
 
 	private void jBtnUpdateActionPerformed(java.awt.event.ActionEvent evt) {

@@ -205,64 +205,35 @@ public class JDBCWorkingSetDAO extends WorkingGui implements WorkingDAO {
 
 	private void jBtnUpdateActionPerformed(java.awt.event.ActionEvent evt) {
 		if (checkInputs()) {
-			String UPDATEQUERY = null;
+			String updateQueryWorking = null;
 			PreparedStatement ps = null;
 			Connection con = WorkingDB.getConnection();
-			if (txtActivityGui == null) {
-				try {
-					UPDATEQUERY = "UPDATE dolgozok SET Név = ?, Irányítószám_ID = ?"
-							+ ", Leánykori_név = ?, Neme = ?, Születési_dátum = ?, Anyja_neve = ?, Magántelefon = ?, Magán_mobil = ?"
-							+ ", Magán_email = ? WHERE Dolgozo_ID = ?";
-					ps = con.prepareStatement(UPDATEQUERY);
-					ps.setString(1, txtIDGui.getText());
-					ps.setString(2, txtNameGui.getText());
-					ps.setString(3, txtZipCodeGui.getText());
-					ps.setString(4, txtMaidenNameGui.getText());
-					ps.setString(5, txtGenderGui.getText());
-					ps.setString(6, txtDateOfBirthGui.getText());
-					ps.setString(7, txtMothersNameGui.getText());
-					ps.setString(8, txtPrivateLandlinePhoneGui.getText());
-					ps.setString(9, txtPrivateMobilPhoneGui.getText());
-					Boolean b = txtPrivateEmailGui.getText().matches(EMAIL_REGEX);
-					if (b) {
-						ps.setString(10, txtPrivateEmailGui.getText());
-					} else {
-						JOptionPane.showMessageDialog(null, "Nem megfelelő email cím");
-					}
-					ps.executeUpdate();
-					Show_Products_In_JTable();
-					JOptionPane.showMessageDialog(null, "Sikeres Frissítés");
-				} catch (SQLException ex) {
-					Logger.getLogger(JDBCWorkingSetDAO.class.getName()).log(Level.SEVERE, null, ex);
-				}
-			} else {
-				try {
-					UPDATEQUERY = "UPDATE dolgozok SET Név = ?, Irányítószám_ID = ?"
-							+ ", Leánykori_név = ?, Neme = ?, Születési_dátum = ?, Anyja_neve = ?, Magántelefon = ?, Magán_mobil = ?"
-							+ ", Magán_email = ? WHERE Dolgozo_ID = ?";
-					ps = con.prepareStatement(UPDATEQUERY);
-					ps = con.prepareStatement(UPDATEQUERY);
-					ps.setString(1, txtIDGui.getText());
-					ps.setString(2, txtNameGui.getText());
-					ps.setString(3, txtZipCodeGui.getText());
-					ps.setString(4, txtMaidenNameGui.getText());
-					ps.setString(5, txtGenderGui.getText());
-					ps.setString(6, txtDateOfBirthGui.getText());
-					ps.setString(7, txtMothersNameGui.getText());
-					ps.setString(8, txtPrivateLandlinePhoneGui.getText());
-					ps.setString(9, txtPrivateMobilPhoneGui.getText());
-					Boolean b = txtPrivateEmailGui.getText().matches(EMAIL_REGEX);
-					if (b) {
-						ps.setString(10, txtPrivateEmailGui.getText());
-					} else {
-						JOptionPane.showMessageDialog(null, "Nem megfelelő email cím");
-					}
-					ps.executeUpdate();
-					Show_Products_In_JTable();
-					JOptionPane.showMessageDialog(null, "Sikeres Frissítés");
-				} catch (Exception ex) {
-					JOptionPane.showMessageDialog(null, ex.getMessage());
-				}
+			try {
+				updateQueryWorking = "UPDATE dolgozok SET Név = ?"
+						+ ", Leánykori_név = ?, Neme = ?, Születési_dátum = ?, Anyja_neve = ?, Magántelefon = ?, Magán_mobil = ?"
+						+ ", Magán_email = ? WHERE Dolgozo_ID = ?";
+				ps = con.prepareStatement(updateQueryWorking);
+				ps.setInt(1, Integer.parseInt(txtIDGui.getText()));
+				ps.setString(2, txtNameGui.getText());
+				ps.setString(3, txtMaidenNameGui.getText());
+				ps.setString(4, txtGenderGui.getText());
+				ps.setString(5, txtDateOfBirthGui.getText());
+				ps.setString(6, txtMothersNameGui.getText());
+				ps.setString(7, txtPrivateLandlinePhoneGui.getText());
+				ps.setString(8, txtPrivateMobilPhoneGui.getText());
+				ps.setString(9, txtPrivateEmailGui.getText());
+
+				// ps.setString(1, txtIDGui.getText());
+				// ps.setString(2, txtZipCodeGui.getText());
+				// ps.setString(3, txtCuntryAddresGui.getText());
+				// ps.setString(4, txtSettlementGui.getText());
+				// ps.setString(5, txtTitleGui.getText());
+				ps.executeUpdate();
+				Show_Products_In_JTable();
+				JOptionPane.showMessageDialog(null, "Sikeres Frissítés");
+				System.out.println(txtPrivateMobilPhoneGui.getText());
+			} catch (SQLException ex) {
+				Logger.getLogger(JDBCWorkingSetDAO.class.getName()).log(Level.SEVERE, null, ex);
 			}
 		} else {
 			JOptionPane.showMessageDialog(null, "Egy vagy több mező üres vagy rossz");

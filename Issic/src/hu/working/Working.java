@@ -3,15 +3,15 @@ package hu.working;
 public class Working {
 	private Integer workingID, zipCode, letterZipCode, healthCard, taxID;
 	private String workingName, maidenName, gender, dateOfBirth, mothersName, privatePhone, privateMobil, privateEmail,
-			cuntry, settlement, title, letterContry, letterSettlement, letterTitle, addDate, exitDate, post,
+			cuntry, settlement, title, letterCuntry, letterSettlement, letterTitle, addDate, exitDate, post,
 			classWorking, oganizationLandlinePhone, oganizationMobilPhone, oganizationEmail, activity, iDCard,
 			drivingLicense, passport;
 
 	public Working(Integer wWorkingId, String wWorkingName, String wMaidenName, String wGender, String wDateOfBirth,
 			String wMothersName, String wPrivatePhone, String wPrivateMobil, String wPrivateEmail, Integer wZipCode,
-			String wCuntry, String wSettlement, String wTitle
-	// Integer wLetterZipCode, String wLetterContry,
-	// String wLetterSettlement, String wLetterTitle, String wAddDate, String
+			String wCuntry, String wSettlement, String wTitle, Integer wLetterZipCode, String wLetterCuntry,
+			String wLetterSettlement, String wLetterTitle
+	// , String wAddDate, String
 	// wExitDate, String wPost,
 	// String wClassWorking, String wActivity, String wOganizationLandlinePhone,
 	// String wOganizationMobilPhone,
@@ -32,12 +32,13 @@ public class Working {
 		this.cuntry = wCuntry;
 		this.settlement = wSettlement;
 		this.title = wTitle;
-		// this.letterZipCode = wLetterZipCode;
+		this.letterZipCode = wLetterZipCode;
+		this.letterCuntry = wLetterCuntry;
+		this.letterSettlement = wLetterSettlement;
+		this.letterTitle = wLetterTitle;
+
 		// this.healthCard = wHealthCard;
 		// this.taxID = wTaxID;
-		// this.letterContry = wLetterContry;
-		// this.letterSettlement = wLetterSettlement;
-		// this.letterTitle = wLetterTitle;
 		// this.addDate = wAddDate;
 		// this.exitDate = wExitDate;
 		// this.post = wPost;
@@ -116,7 +117,7 @@ public class Working {
 	}
 
 	public String getLetterContry() {
-		return letterContry;
+		return letterCuntry;
 	}
 
 	public String getLetterSettlement() {

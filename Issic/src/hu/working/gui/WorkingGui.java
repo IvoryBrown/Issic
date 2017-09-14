@@ -43,7 +43,7 @@ public class WorkingGui extends Gui {
 	protected JTextField txtSettlementGui;
 	protected JTextField txtTitleGui;
 	protected JLabel jLblMailingAddress;
-	protected JTextField txtLetterContryGui;
+	protected JTextField txtLetterCuntryGui;
 	protected JTextField txtLetterZipCodeGui;
 	protected JTextField txtLetterSettlementGui;
 	protected JTextField txtLetterTitleGui;
@@ -274,11 +274,11 @@ public class WorkingGui extends Gui {
 		jLblLetterSettlementGui.setBounds(280, 355, 114, 20);
 		jPnlWorkingGui.add(jLblLetterSettlementGui);
 
-		txtLetterContryGui = new JTextField();
-		txtLetterContryGui.setFont(new Font("Tahoma", Font.BOLD, 12));
-		txtLetterContryGui.setColumns(10);
-		txtLetterContryGui.setBounds(392, 330, 276, 25);
-		jPnlWorkingGui.add(txtLetterContryGui);
+		txtLetterCuntryGui = new JTextField();
+		txtLetterCuntryGui.setFont(new Font("Tahoma", Font.BOLD, 12));
+		txtLetterCuntryGui.setColumns(10);
+		txtLetterCuntryGui.setBounds(392, 330, 276, 25);
+		jPnlWorkingGui.add(txtLetterCuntryGui);
 
 		txtLetterZipCodeGui = new JTextField();
 		txtLetterZipCodeGui.setFont(new Font("Tahoma", Font.BOLD, 12));

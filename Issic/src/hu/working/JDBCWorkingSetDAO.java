@@ -14,9 +14,8 @@ import javax.swing.table.DefaultTableModel;
 
 import hu.working.gui.WorkingGui;
 
+@SuppressWarnings("serial")
 public class JDBCWorkingSetDAO extends WorkingGui implements WorkingDAO {
-
-	private String EMAIL_REGEX = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
 
 	public JDBCWorkingSetDAO() {
 		setAction();
@@ -78,39 +77,26 @@ public class JDBCWorkingSetDAO extends WorkingGui implements WorkingDAO {
 		}
 	}
 
-	public boolean checkEmailInputs() {
-		if (txtPrivateEmailGui.getText().isEmpty()) {
-			return false;
-		} else {
-			try {
-				return true;
-			} catch (Exception ex) {
-				return false;
-			}
-		}
-	}
-
 	@Override
 	public ArrayList<Working> getProductList() {
 		ArrayList<Working> productList = new ArrayList<Working>();
 		Connection con = WorkingDB.getConnection();
-		String QUERY = "SELECT * FROM dolgozok " + "INNER JOIN lakcím ON (Dolgozok_Dolgozo_ID=Dolgozo_ID) ";
+		String query = "SELECT * FROM dolgozok " + "  JOIN lakcím   ON Lakcím_Dolgozok_Dolgozo_ID = Dolgozo_ID "
+				+ " JOIN levcím  ON Levcím_Dolgozok_Dolgozo_ID = Dolgozo_ID ";
 		Statement st;
 		ResultSet rs;
 		try {
 			st = con.createStatement();
-			rs = st.executeQuery(QUERY);
+			rs = st.executeQuery(query);
 			Working product;
 			while (rs.next()) {
 				product = new Working(rs.getInt("Dolgozo_ID"), rs.getString("Név"), rs.getString("Leánykori_név"),
 						rs.getString("Neme"), rs.getString("Születési_dátum"), rs.getString("Anyja_neve"),
 						rs.getString("Magántelefon"), rs.getString("Magán_mobil"), rs.getString("Magán_email"),
 						rs.getInt("Irányítószám"), rs.getString("Ország"), rs.getString("Település"),
-						rs.getString("Cím")
+						rs.getString("Cím"), rs.getInt("Irányítószám_lev"), rs.getString("Ország_lev"),
+						rs.getString("Település_lev"), rs.getString("Cím_lev")
 
-				// , rs.getInt("Irányítószám"),
-				// rs.getString("Ország"),
-				// rs.getString("Település"), rs.getString("Cím"),
 				// rs.getString("Belépés_dátuma"),
 				// rs.getString("Kilépés_dátuma"), rs.getString("Beosztás"),
 				// rs.getString("Osztály"),
@@ -154,6 +140,10 @@ public class JDBCWorkingSetDAO extends WorkingGui implements WorkingDAO {
 		txtCuntryAddresGui.setText(getProductList().get(index).getCuntry());
 		txtSettlementGui.setText(getProductList().get(index).getSettlement());
 		txtTitleGui.setText(getProductList().get(index).getTitle());
+		txtLetterZipCodeGui.setText(Integer.toString(getProductList().get(index).getLetterZipCode()));
+		txtLetterCuntryGui.setText(getProductList().get(index).getLetterContry());
+		txtLetterSettlementGui.setText(getProductList().get(index).getLetterSettlement());
+		txtLetterTitleGui.setText(getProductList().get(index).getLetterTitle());
 		// TODO folyt.
 	}
 
@@ -161,28 +151,37 @@ public class JDBCWorkingSetDAO extends WorkingGui implements WorkingDAO {
 		if (checkInputs()) {
 			try {
 				Connection con = WorkingDB.getConnection();
-				PreparedStatement inserinto = con.prepareStatement("INSERT INTO dolgozok(Dolgozo_ID,Név,"
+				PreparedStatement inserintoWorking = con.prepareStatement("INSERT INTO dolgozok(Dolgozo_ID,Név,"
 						+ "Leánykori_név,Neme,Születési_dátum,Anyja_neve,Magántelefon,Magán_mobil,Magán_email)"
 						+ "values(?,?,?,?,?,?,?,?,?) ");
-				inserinto.setString(1, txtIDGui.getText());
-				inserinto.setString(2, txtNameGui.getText());
-				inserinto.setString(3, txtMaidenNameGui.getText());
-				inserinto.setString(4, txtGenderGui.getText());
-				inserinto.setString(5, txtDateOfBirthGui.getText());
-				inserinto.setString(6, txtMothersNameGui.getText());
-				inserinto.setString(7, txtPrivateLandlinePhoneGui.getText());
-				inserinto.setString(8, txtPrivateMobilPhoneGui.getText());
-				inserinto.setString(9, txtPrivateEmailGui.getText());
-				PreparedStatement inserintos = con
-						.prepareStatement("INSERT INTO lakcím(Dolgozok_Dolgozo_ID,Irányítószám,Ország,Település,cím)"
+				inserintoWorking.setString(1, txtIDGui.getText());
+				inserintoWorking.setString(2, txtNameGui.getText());
+				inserintoWorking.setString(3, txtMaidenNameGui.getText());
+				inserintoWorking.setString(4, txtGenderGui.getText());
+				inserintoWorking.setString(5, txtDateOfBirthGui.getText());
+				inserintoWorking.setString(6, txtMothersNameGui.getText());
+				inserintoWorking.setString(7, txtPrivateLandlinePhoneGui.getText());
+				inserintoWorking.setString(8, txtPrivateMobilPhoneGui.getText());
+				inserintoWorking.setString(9, txtPrivateEmailGui.getText());
+				PreparedStatement inserintoWorkingHomeAddress = con.prepareStatement(
+						"INSERT INTO lakcím(Lakcím_Dolgozok_Dolgozo_ID,Irányítószám,Ország,Település,cím)"
 								+ "values(?,?,?,?,?) ");
-				inserintos.setString(1, txtIDGui.getText());
-				inserintos.setString(2, txtZipCodeGui.getText());
-				inserintos.setString(3, txtCuntryAddresGui.getText());
-				inserintos.setString(4, txtSettlementGui.getText());
-				inserintos.setString(5, txtTitleGui.getText());
-				inserinto.executeUpdate();
-				inserintos.executeUpdate();
+				inserintoWorkingHomeAddress.setString(1, txtIDGui.getText());
+				inserintoWorkingHomeAddress.setString(2, txtZipCodeGui.getText());
+				inserintoWorkingHomeAddress.setString(3, txtCuntryAddresGui.getText());
+				inserintoWorkingHomeAddress.setString(4, txtSettlementGui.getText());
+				inserintoWorkingHomeAddress.setString(5, txtTitleGui.getText());
+				PreparedStatement inserintoMailingAddress = con.prepareStatement(
+						"INSERT INTO levcím(Levcím_Dolgozok_Dolgozo_ID,Irányítószám_lev,Ország_lev,Település_lev,cím_lev)"
+								+ "values(?,?,?,?,?) ");
+				inserintoMailingAddress.setString(1, txtIDGui.getText());
+				inserintoMailingAddress.setString(2, txtLetterZipCodeGui.getText());
+				inserintoMailingAddress.setString(3, txtLetterCuntryGui.getText());
+				inserintoMailingAddress.setString(4, txtLetterSettlementGui.getText());
+				inserintoMailingAddress.setString(5, txtLetterTitleGui.getText());
+				inserintoWorking.executeUpdate();
+				inserintoWorkingHomeAddress.executeUpdate();
+				inserintoMailingAddress.executeUpdate();
 				Show_Products_In_JTable();
 				JOptionPane.showMessageDialog(null, "Adatok beillesztve");
 			} catch (SQLException ex) {
@@ -191,21 +190,13 @@ public class JDBCWorkingSetDAO extends WorkingGui implements WorkingDAO {
 		} else {
 			JOptionPane.showMessageDialog(null, "Egy vagy több mező üres");
 		}
-		System.out.println("TXT");
-		System.out.println(txtIDGui.getText());
-		System.out.println(txtNameGui.getText());
-		System.out.println(txtMaidenNameGui.getText());
-		System.out.println(txtGenderGui.getText());
-		System.out.println(txtDateOfBirthGui.getText());
-		System.out.println(txtMothersNameGui.getText());
-		System.out.println(txtPrivateLandlinePhoneGui.getText());
-		System.out.println(txtPrivateMobilPhoneGui.getText());
-		System.out.println(txtPrivateEmailGui.getText());
 	}
 
 	private void jBtnUpdateActionPerformed(java.awt.event.ActionEvent evt) {
 		if (checkInputs()) {
 			String updateQueryWorking = null;
+			String updateQueryWorkingHomeAddress = null;
+			String updateQueryWorkingMailingAddress = null;
 			PreparedStatement ps = null;
 			Connection con = WorkingDB.getConnection();
 			try {
@@ -213,25 +204,34 @@ public class JDBCWorkingSetDAO extends WorkingGui implements WorkingDAO {
 						+ ", Leánykori_név = ?, Neme = ?, Születési_dátum = ?, Anyja_neve = ?, Magántelefon = ?, Magán_mobil = ?"
 						+ ", Magán_email = ? WHERE Dolgozo_ID = ?";
 				ps = con.prepareStatement(updateQueryWorking);
-				ps.setInt(1, Integer.parseInt(txtIDGui.getText()));
-				ps.setString(2, txtNameGui.getText());
-				ps.setString(3, txtMaidenNameGui.getText());
-				ps.setString(4, txtGenderGui.getText());
-				ps.setString(5, txtDateOfBirthGui.getText());
-				ps.setString(6, txtMothersNameGui.getText());
-				ps.setString(7, txtPrivateLandlinePhoneGui.getText());
-				ps.setString(8, txtPrivateMobilPhoneGui.getText());
-				ps.setString(9, txtPrivateEmailGui.getText());
-
-				// ps.setString(1, txtIDGui.getText());
-				// ps.setString(2, txtZipCodeGui.getText());
-				// ps.setString(3, txtCuntryAddresGui.getText());
-				// ps.setString(4, txtSettlementGui.getText());
-				// ps.setString(5, txtTitleGui.getText());
+				ps.setString(1, txtNameGui.getText());
+				ps.setString(2, txtMaidenNameGui.getText());
+				ps.setString(3, txtGenderGui.getText());
+				ps.setString(4, txtDateOfBirthGui.getText());
+				ps.setString(5, txtMothersNameGui.getText());
+				ps.setString(6, txtPrivateLandlinePhoneGui.getText());
+				ps.setString(7, txtPrivateMobilPhoneGui.getText());
+				ps.setString(8, txtPrivateEmailGui.getText());
+				ps.setInt(9, Integer.parseInt(txtIDGui.getText()));
+				updateQueryWorkingHomeAddress = "UPDATE Lakcím SET Irányítószám = ?, Ország = ?, Település = ?"
+						+ ", Cím = ? WHERE Lakcím_Dolgozok_Dolgozo_ID = ?";
+				ps = con.prepareStatement(updateQueryWorkingHomeAddress);
+				ps.setString(1, txtZipCodeGui.getText());
+				ps.setString(2, txtCuntryAddresGui.getText());
+				ps.setString(3, txtSettlementGui.getText());
+				ps.setString(4, txtTitleGui.getText());
+				ps.setString(5, txtIDGui.getText());
+				updateQueryWorkingMailingAddress = "UPDATE Levcím SET Irányítószám_lev = ?, Ország_lev = ?, Település_lev = ?"
+						+ ", Cím_lev = ? WHERE Levcím_Dolgozok_Dolgozo_ID = ?";
+				ps = con.prepareStatement(updateQueryWorkingMailingAddress);
+				ps.setString(1, txtLetterZipCodeGui.getText());
+				ps.setString(2, txtLetterCuntryGui.getText());
+				ps.setString(3, txtLetterSettlementGui.getText());
+				ps.setString(4, txtLetterTitleGui.getText());
+				ps.setString(5, txtIDGui.getText());
 				ps.executeUpdate();
 				Show_Products_In_JTable();
 				JOptionPane.showMessageDialog(null, "Sikeres Frissítés");
-				System.out.println(txtPrivateMobilPhoneGui.getText());
 			} catch (SQLException ex) {
 				Logger.getLogger(JDBCWorkingSetDAO.class.getName()).log(Level.SEVERE, null, ex);
 			}
@@ -244,10 +244,20 @@ public class JDBCWorkingSetDAO extends WorkingGui implements WorkingDAO {
 		if (!txtIDGui.getText().equals("")) {
 			try {
 				Connection con = WorkingDB.getConnection();
-				PreparedStatement DELETE = con.prepareStatement("DELETE FROM dolgozok WHERE Dolgozo_ID = ?");
-				int id = Integer.parseInt(txtIDGui.getText());
-				DELETE.setInt(1, id);
-				DELETE.executeUpdate();
+				PreparedStatement deleteWorkingMailingAddress = con
+						.prepareStatement("DELETE FROM Levcím WHERE Levcím_Dolgozok_Dolgozo_ID = ? ");
+				int idWorkingMailingAddress = Integer.parseInt(txtIDGui.getText());
+				deleteWorkingMailingAddress.setInt(1, idWorkingMailingAddress);
+				deleteWorkingMailingAddress.executeUpdate();
+				PreparedStatement deleteWorkingHomeAddress = con
+						.prepareStatement("DELETE FROM Lakcím WHERE Lakcím_Dolgozok_Dolgozo_ID = ? ");
+				int idWorkingHomeAddress = Integer.parseInt(txtIDGui.getText());
+				deleteWorkingHomeAddress.setInt(1, idWorkingHomeAddress);
+				deleteWorkingHomeAddress.executeUpdate();
+				PreparedStatement deleteWorking = con.prepareStatement("DELETE FROM dolgozok WHERE Dolgozo_ID = ?");
+				int idWorking = Integer.parseInt(txtIDGui.getText());
+				deleteWorking.setInt(1, idWorking);
+				deleteWorking.executeUpdate();
 				Show_Products_In_JTable();
 				JOptionPane.showMessageDialog(null, "Sikeres törlés");
 			} catch (SQLException ex) {
@@ -273,7 +283,7 @@ public class JDBCWorkingSetDAO extends WorkingGui implements WorkingDAO {
 		txtExitDate.setText(null);
 		txtGenderGui.setText(null);
 		txtIDGui.setText(null);
-		txtLetterContryGui.setText(null);
+		txtLetterCuntryGui.setText(null);
 		txtLetterSettlementGui.setText(null);
 		txtLetterTitleGui.setText(null);
 		txtLetterZipCodeGui.setText(null);

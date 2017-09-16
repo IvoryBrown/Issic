@@ -20,7 +20,7 @@ public class JDBCWorkingSetDAO extends WorkingGui implements WorkingDAO {
 	public JDBCWorkingSetDAO() {
 		setAction();
 		Show_Products_In_JTable();
-}
+	}
 
 	private void setAction() {
 		tblWorking.setModel(new javax.swing.table.DefaultTableModel(new Object[][] {}, new String[] { "Partner név" }));
@@ -34,12 +34,12 @@ public class JDBCWorkingSetDAO extends WorkingGui implements WorkingDAO {
 				jBtnInsertActionPerformed(evt);
 			}
 		});
-btnEditingWorkingGui.addActionListener(new java.awt.event.ActionListener() {
+		btnEditingWorkingGui.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				jBtnUpdateActionPerformed(evt);
 			}
 		});
-btnDeleteWorkingGui.addActionListener(new java.awt.event.ActionListener() {
+		btnDeleteWorkingGui.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				int res = JOptionPane.showConfirmDialog(null, "Biztos törölni szeretnéd?", "Figyelmeztetés",
 						JOptionPane.YES_NO_OPTION);
@@ -49,7 +49,7 @@ btnDeleteWorkingGui.addActionListener(new java.awt.event.ActionListener() {
 					return;
 			}
 		});
-btnDeleteShowWorkingGui.addActionListener(new java.awt.event.ActionListener() {
+		btnDeleteShowWorkingGui.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				btnDeleteShowWorkingPerformed(evt);
 			}
@@ -77,8 +77,9 @@ btnDeleteShowWorkingGui.addActionListener(new java.awt.event.ActionListener() {
 	public ArrayList<Working> getProductList() {
 		ArrayList<Working> productList = new ArrayList<Working>();
 		Connection con = WorkingDB.getConnection();
-		String query = "SELECT * FROM dolgozok " + "  JOIN lakcím   ON Lakcím_Dolgozok_Dolgozo_ID = Dolgozo_ID "
-				+ " JOIN levcím  ON Levcím_Dolgozok_Dolgozo_ID = Dolgozo_ID ";
+		String query = "SELECT * FROM dolgozok " + "  JOIN lakcím ON Lakcím_Dolgozok_Dolgozo_ID = Dolgozo_ID "
+				+ " JOIN levcím ON Levcím_Dolgozok_Dolgozo_ID = Dolgozo_ID "
+				+ " JOIN szervezet ON Szervezet_Dolgozok_Dolgozo_ID = Dolgozo_ID";
 		Statement st;
 		ResultSet rs;
 		try {
@@ -91,14 +92,11 @@ btnDeleteShowWorkingGui.addActionListener(new java.awt.event.ActionListener() {
 						rs.getString("Magántelefon"), rs.getString("Magán_mobil"), rs.getString("Magán_email"),
 						rs.getInt("Irányítószám"), rs.getString("Ország"), rs.getString("Település"),
 						rs.getString("Cím"), rs.getInt("Irányítószám_lev"), rs.getString("Ország_lev"),
-						rs.getString("Település_lev"), rs.getString("Cím_lev")
-
-				// rs.getString("Belépés_dátuma"),
-				// rs.getString("Kilépés_dátuma"), rs.getString("Beosztás"),
-				// rs.getString("Osztály"),
-				// rs.getString("Tevékenység"), rs.getString("Üzlei_telefon"),
-				// rs.getString("Üzleti_mobil"),
-				// rs.getString("Üzleti_email"), rs.getString("Sz_ig_szám"),
+						rs.getString("Település_lev"), rs.getString("Cím_lev"), rs.getString("Belépés_dátuma"),
+						rs.getString("Kilépés_dátuma"), rs.getString("Beosztás"), rs.getString("Osztály"),
+						rs.getString("Tevékenység"), rs.getString("Üzlei_telefon"), rs.getString("Üzleti_mobil"),
+						rs.getString("Üzleti_email")
+				// , rs.getString("Sz_ig_szám"),
 				// rs.getInt("Taj_szám"),
 				// rs.getInt("Adoazonosító"), rs.getString("Vezetői_engedély"),
 				// rs.getString("Útlevél")
@@ -140,6 +138,14 @@ btnDeleteShowWorkingGui.addActionListener(new java.awt.event.ActionListener() {
 		txtLetterCuntryGui.setText(getProductList().get(index).getLetterContry());
 		txtLetterSettlementGui.setText(getProductList().get(index).getLetterSettlement());
 		txtLetterTitleGui.setText(getProductList().get(index).getLetterTitle());
+		txtAddDate.setText(getProductList().get(index).getAddDate());
+		txtExitDate.setText(getProductList().get(index).getExitDate());
+		txtPostGui.setText(getProductList().get(index).getPost());
+		txtClassGui.setText(getProductList().get(index).getClassWorking());
+		txtOganizationLandlinePhoneGui.setText(getProductList().get(index).getOganizationLandlinePhone());
+		txtOrganizationMobilPhoneGui.setText(getProductList().get(index).getOganizationMobilPhone());
+		txtOrganizationEmailGui.setText(getProductList().get(index).getOganizationEmail());
+		txtActivityGui.setText(getProductList().get(index).getActivity());
 		// TODO folyt.
 	}
 
@@ -147,37 +153,50 @@ btnDeleteShowWorkingGui.addActionListener(new java.awt.event.ActionListener() {
 		if (checkInputs()) {
 			try {
 				Connection con = WorkingDB.getConnection();
-				PreparedStatement inserintoWorking = con.prepareStatement("INSERT INTO dolgozok(Dolgozo_ID,Név,"
+				PreparedStatement insertWorking = con.prepareStatement("INSERT INTO dolgozok(Dolgozo_ID,Név,"
 						+ "Leánykori_név,Neme,Születési_dátum,Anyja_neve,Magántelefon,Magán_mobil,Magán_email)"
 						+ "values(?,?,?,?,?,?,?,?,?) ");
-				inserintoWorking.setString(1, txtIDGui.getText());
-				inserintoWorking.setString(2, txtNameGui.getText());
-				inserintoWorking.setString(3, txtMaidenNameGui.getText());
-				inserintoWorking.setString(4, txtGenderGui.getText());
-				inserintoWorking.setString(5, txtDateOfBirthGui.getText());
-				inserintoWorking.setString(6, txtMothersNameGui.getText());
-				inserintoWorking.setString(7, txtPrivateLandlinePhoneGui.getText());
-				inserintoWorking.setString(8, txtPrivateMobilPhoneGui.getText());
-				inserintoWorking.setString(9, txtPrivateEmailGui.getText());
-				inserintoWorking.executeUpdate();
-				PreparedStatement inserintoWorkingHomeAddress = con.prepareStatement(
+				insertWorking.setString(1, txtIDGui.getText());
+				insertWorking.setString(2, txtNameGui.getText());
+				insertWorking.setString(3, txtMaidenNameGui.getText());
+				insertWorking.setString(4, txtGenderGui.getText());
+				insertWorking.setString(5, txtDateOfBirthGui.getText());
+				insertWorking.setString(6, txtMothersNameGui.getText());
+				insertWorking.setString(7, txtPrivateLandlinePhoneGui.getText());
+				insertWorking.setString(8, txtPrivateMobilPhoneGui.getText());
+				insertWorking.setString(9, txtPrivateEmailGui.getText());
+				insertWorking.executeUpdate();
+				PreparedStatement insertWorkingHomeAddress = con.prepareStatement(
 						"INSERT INTO lakcím(Lakcím_Dolgozok_Dolgozo_ID,Irányítószám,Ország,Település,cím)"
 								+ "values(?,?,?,?,?) ");
-				inserintoWorkingHomeAddress.setString(1, txtIDGui.getText());
-				inserintoWorkingHomeAddress.setString(2, txtZipCodeGui.getText());
-				inserintoWorkingHomeAddress.setString(3, txtCuntryAddresGui.getText());
-				inserintoWorkingHomeAddress.setString(4, txtSettlementGui.getText());
-				inserintoWorkingHomeAddress.setString(5, txtTitleGui.getText());
-				inserintoWorkingHomeAddress.executeUpdate();
-				PreparedStatement inserintoMailingAddress = con.prepareStatement(
+				insertWorkingHomeAddress.setString(1, txtIDGui.getText());
+				insertWorkingHomeAddress.setString(2, txtZipCodeGui.getText());
+				insertWorkingHomeAddress.setString(3, txtCuntryAddresGui.getText());
+				insertWorkingHomeAddress.setString(4, txtSettlementGui.getText());
+				insertWorkingHomeAddress.setString(5, txtTitleGui.getText());
+				insertWorkingHomeAddress.executeUpdate();
+				PreparedStatement insertMailingAddress = con.prepareStatement(
 						"INSERT INTO levcím(Levcím_Dolgozok_Dolgozo_ID,Irányítószám_lev,Ország_lev,Település_lev,cím_lev)"
 								+ "values(?,?,?,?,?) ");
-				inserintoMailingAddress.setString(1, txtIDGui.getText());
-				inserintoMailingAddress.setString(2, txtLetterZipCodeGui.getText());
-				inserintoMailingAddress.setString(3, txtLetterCuntryGui.getText());
-				inserintoMailingAddress.setString(4, txtLetterSettlementGui.getText());
-				inserintoMailingAddress.setString(5, txtLetterTitleGui.getText());
-				inserintoMailingAddress.executeUpdate();
+				insertMailingAddress.setString(1, txtIDGui.getText());
+				insertMailingAddress.setString(2, txtLetterZipCodeGui.getText());
+				insertMailingAddress.setString(3, txtLetterCuntryGui.getText());
+				insertMailingAddress.setString(4, txtLetterSettlementGui.getText());
+				insertMailingAddress.setString(5, txtLetterTitleGui.getText());
+				insertMailingAddress.executeUpdate();
+				PreparedStatement insertOrganization = con.prepareStatement(
+						"INSERT INTO szervezet(Szervezet_Dolgozok_Dolgozo_ID,Belépés_dátuma,Kilépés_dátuma,Beosztás,Osztály,Tevékenység,Üzlei_telefon,Üzleti_mobil,Üzleti_email)"
+								+ "values(?,?,?,?,?,?,?,?,?) ");
+				insertOrganization.setString(1, txtIDGui.getText());
+				insertOrganization.setString(2, txtAddDate.getText());
+				insertOrganization.setString(3, txtExitDate.getText());
+				insertOrganization.setString(4, txtPostGui.getText());
+				insertOrganization.setString(5, txtClassGui.getText());
+				insertOrganization.setString(6, txtActivityGui.getText());
+				insertOrganization.setString(7, txtOganizationLandlinePhoneGui.getText());
+				insertOrganization.setString(8, txtOrganizationMobilPhoneGui.getText());
+				insertOrganization.setString(9, txtOrganizationEmailGui.getText());
+				insertOrganization.executeUpdate();
 				Show_Products_In_JTable();
 				JOptionPane.showMessageDialog(null, "Adatok beillesztve");
 			} catch (SQLException ex) {

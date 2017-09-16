@@ -10,12 +10,11 @@ public class Working {
 	public Working(Integer wWorkingId, String wWorkingName, String wMaidenName, String wGender, String wDateOfBirth,
 			String wMothersName, String wPrivatePhone, String wPrivateMobil, String wPrivateEmail, Integer wZipCode,
 			String wCuntry, String wSettlement, String wTitle, Integer wLetterZipCode, String wLetterCuntry,
-			String wLetterSettlement, String wLetterTitle
-	// , String wAddDate, String
-	// wExitDate, String wPost,
-	// String wClassWorking, String wActivity, String wOganizationLandlinePhone,
-	// String wOganizationMobilPhone,
-	// String wOanizationEmail, String wIDCard, Integer wHealthCard, Integer
+			String wLetterSettlement, String wLetterTitle, String wAddDate, String wExitDate, String wPost,
+			String wClassWorking, String wActivity, String wOganizationLandlinePhone, String wOganizationMobilPhone,
+			String wOanizationEmail
+	// String wIDCard, Integer wHealthCard,
+	// Integer
 	// wTaxID, String wDivingLicense,
 	// String wPassport
 	) {
@@ -36,17 +35,16 @@ public class Working {
 		this.letterCuntry = wLetterCuntry;
 		this.letterSettlement = wLetterSettlement;
 		this.letterTitle = wLetterTitle;
-
+		this.addDate = wAddDate;
+		this.exitDate = wExitDate;
+		this.post = wPost;
+		this.classWorking = wClassWorking;
+		this.activity = wActivity;
+		this.oganizationLandlinePhone = wOganizationLandlinePhone;
+		this.oganizationMobilPhone = wOganizationMobilPhone;
+		this.oganizationEmail = wOanizationEmail;
 		// this.healthCard = wHealthCard;
 		// this.taxID = wTaxID;
-		// this.addDate = wAddDate;
-		// this.exitDate = wExitDate;
-		// this.post = wPost;
-		// this.classWorking = wClassWorking;
-		// this.oganizationLandlinePhone = wOganizationLandlinePhone;
-		// this.oganizationMobilPhone = wOganizationMobilPhone;
-		// this.oganizationEmail = wOanizationEmail;
-		// this.activity = wActivity;
 		// this.iDCard = wIDCard;
 		// this.drivingLicense = wDivingLicense;
 		// this.passport = wPassport;

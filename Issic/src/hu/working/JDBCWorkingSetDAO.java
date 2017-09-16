@@ -20,8 +20,7 @@ public class JDBCWorkingSetDAO extends WorkingGui implements WorkingDAO {
 	public JDBCWorkingSetDAO() {
 		setAction();
 		Show_Products_In_JTable();
-
-	}
+}
 
 	private void setAction() {
 		tblWorking.setModel(new javax.swing.table.DefaultTableModel(new Object[][] {}, new String[] { "Partner név" }));
@@ -35,14 +34,12 @@ public class JDBCWorkingSetDAO extends WorkingGui implements WorkingDAO {
 				jBtnInsertActionPerformed(evt);
 			}
 		});
-
-		btnEditingWorkingGui.addActionListener(new java.awt.event.ActionListener() {
+btnEditingWorkingGui.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				jBtnUpdateActionPerformed(evt);
 			}
 		});
-
-		btnDeleteWorkingGui.addActionListener(new java.awt.event.ActionListener() {
+btnDeleteWorkingGui.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				int res = JOptionPane.showConfirmDialog(null, "Biztos törölni szeretnéd?", "Figyelmeztetés",
 						JOptionPane.YES_NO_OPTION);
@@ -52,8 +49,7 @@ public class JDBCWorkingSetDAO extends WorkingGui implements WorkingDAO {
 					return;
 			}
 		});
-
-		btnDeleteShowWorkingGui.addActionListener(new java.awt.event.ActionListener() {
+btnDeleteShowWorkingGui.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				btnDeleteShowWorkingPerformed(evt);
 			}
@@ -163,6 +159,7 @@ public class JDBCWorkingSetDAO extends WorkingGui implements WorkingDAO {
 				inserintoWorking.setString(7, txtPrivateLandlinePhoneGui.getText());
 				inserintoWorking.setString(8, txtPrivateMobilPhoneGui.getText());
 				inserintoWorking.setString(9, txtPrivateEmailGui.getText());
+				inserintoWorking.executeUpdate();
 				PreparedStatement inserintoWorkingHomeAddress = con.prepareStatement(
 						"INSERT INTO lakcím(Lakcím_Dolgozok_Dolgozo_ID,Irányítószám,Ország,Település,cím)"
 								+ "values(?,?,?,?,?) ");
@@ -171,6 +168,7 @@ public class JDBCWorkingSetDAO extends WorkingGui implements WorkingDAO {
 				inserintoWorkingHomeAddress.setString(3, txtCuntryAddresGui.getText());
 				inserintoWorkingHomeAddress.setString(4, txtSettlementGui.getText());
 				inserintoWorkingHomeAddress.setString(5, txtTitleGui.getText());
+				inserintoWorkingHomeAddress.executeUpdate();
 				PreparedStatement inserintoMailingAddress = con.prepareStatement(
 						"INSERT INTO levcím(Levcím_Dolgozok_Dolgozo_ID,Irányítószám_lev,Ország_lev,Település_lev,cím_lev)"
 								+ "values(?,?,?,?,?) ");
@@ -179,8 +177,6 @@ public class JDBCWorkingSetDAO extends WorkingGui implements WorkingDAO {
 				inserintoMailingAddress.setString(3, txtLetterCuntryGui.getText());
 				inserintoMailingAddress.setString(4, txtLetterSettlementGui.getText());
 				inserintoMailingAddress.setString(5, txtLetterTitleGui.getText());
-				inserintoWorking.executeUpdate();
-				inserintoWorkingHomeAddress.executeUpdate();
 				inserintoMailingAddress.executeUpdate();
 				Show_Products_In_JTable();
 				JOptionPane.showMessageDialog(null, "Adatok beillesztve");
@@ -194,12 +190,10 @@ public class JDBCWorkingSetDAO extends WorkingGui implements WorkingDAO {
 
 	private void jBtnUpdateActionPerformed(java.awt.event.ActionEvent evt) {
 		if (checkInputs()) {
-			String updateQueryWorking = null;
-			String updateQueryWorkingHomeAddress = null;
-			String updateQueryWorkingMailingAddress = null;
-			PreparedStatement ps = null;
 			Connection con = WorkingDB.getConnection();
 			try {
+				String updateQueryWorking = null;
+				PreparedStatement ps = null;
 				updateQueryWorking = "UPDATE dolgozok SET Név = ?"
 						+ ", Leánykori_név = ?, Neme = ?, Születési_dátum = ?, Anyja_neve = ?, Magántelefon = ?, Magán_mobil = ?"
 						+ ", Magán_email = ? WHERE Dolgozo_ID = ?";
@@ -213,6 +207,14 @@ public class JDBCWorkingSetDAO extends WorkingGui implements WorkingDAO {
 				ps.setString(7, txtPrivateMobilPhoneGui.getText());
 				ps.setString(8, txtPrivateEmailGui.getText());
 				ps.setInt(9, Integer.parseInt(txtIDGui.getText()));
+				ps.executeUpdate();
+				Show_Products_In_JTable();
+			} catch (SQLException ex) {
+				Logger.getLogger(JDBCWorkingSetDAO.class.getName()).log(Level.SEVERE, null, ex);
+			}
+			String updateQueryWorkingHomeAddress = null;
+			try {
+				PreparedStatement ps = null;
 				updateQueryWorkingHomeAddress = "UPDATE Lakcím SET Irányítószám = ?, Ország = ?, Település = ?"
 						+ ", Cím = ? WHERE Lakcím_Dolgozok_Dolgozo_ID = ?";
 				ps = con.prepareStatement(updateQueryWorkingHomeAddress);
@@ -221,6 +223,14 @@ public class JDBCWorkingSetDAO extends WorkingGui implements WorkingDAO {
 				ps.setString(3, txtSettlementGui.getText());
 				ps.setString(4, txtTitleGui.getText());
 				ps.setString(5, txtIDGui.getText());
+				ps.executeUpdate();
+				Show_Products_In_JTable();
+			} catch (SQLException ex) {
+				Logger.getLogger(JDBCWorkingSetDAO.class.getName()).log(Level.SEVERE, null, ex);
+			}
+			try {
+				String updateQueryWorkingMailingAddress = null;
+				PreparedStatement ps = null;
 				updateQueryWorkingMailingAddress = "UPDATE Levcím SET Irányítószám_lev = ?, Ország_lev = ?, Település_lev = ?"
 						+ ", Cím_lev = ? WHERE Levcím_Dolgozok_Dolgozo_ID = ?";
 				ps = con.prepareStatement(updateQueryWorkingMailingAddress);

@@ -6,6 +6,7 @@ public class Working {
 			cuntry, settlement, title, letterCuntry, letterSettlement, letterTitle, addDate, exitDate, post,
 			classWorking, oganizationLandlinePhone, oganizationMobilPhone, oganizationEmail, activity, iDCard,
 			drivingLicense, passport;
+	private byte[] picture;
 
 	public Working(Integer wWorkingId, String wWorkingName, String wMaidenName, String wGender, String wDateOfBirth,
 			String wMothersName, String wPrivatePhone, String wPrivateMobil, String wPrivateEmail, Integer wZipCode,
@@ -13,7 +14,7 @@ public class Working {
 			String wLetterSettlement, String wLetterTitle, String wAddDate, String wExitDate, String wPost,
 			String wClassWorking, String wActivity, String wOganizationLandlinePhone, String wOganizationMobilPhone,
 			String wOanizationEmail, Integer wHealthCard, String wIDCard, Integer wTaxID, String wDivingLicense,
-			String wPassport) {
+			String wPassport,byte[] wImgage) {
 		this.workingID = wWorkingId;
 		this.workingName = wWorkingName;
 		this.maidenName = wMaidenName;
@@ -44,6 +45,7 @@ public class Working {
 		this.taxID = wTaxID;
 		this.drivingLicense = wDivingLicense;
 		this.passport = wPassport;
+		this.picture = wImgage;
 	}
 
 	public Integer getWorkingID() {
@@ -164,6 +166,10 @@ public class Working {
 
 	public String getPassport() {
 		return passport;
+	}
+
+	public byte[] getPicture() {
+		return picture;
 	}
 
 }

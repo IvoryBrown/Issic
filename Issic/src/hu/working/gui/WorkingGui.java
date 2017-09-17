@@ -17,6 +17,7 @@ import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
 import hu.gui.Gui;
+import javax.swing.ImageIcon;
 
 @SuppressWarnings("serial")
 public class WorkingGui extends Gui {
@@ -81,6 +82,7 @@ public class WorkingGui extends Gui {
 	protected JButton btnEditingWorkingGui;
 	protected JButton btnDeleteWorkingGui;
 	protected JButton btnDeleteShowWorkingGui;
+	protected JButton btnWorkingImage;
 	private JTextField textField;
 	private JTabbedPane tabbedPane;
 	private JPanel jPnlDocumentWorkingGui;
@@ -122,6 +124,7 @@ public class WorkingGui extends Gui {
 				TitledBorder.LEFT, TitledBorder.TOP, null, new Color(0, 0, 255)));
 
 		jLblWorkingImageGui = new JLabel();
+		jLblWorkingImageGui.setIcon(new ImageIcon("data\\Image\\Alap.png"));
 		jLblWorkingImageGui.setOpaque(true);
 		jLblWorkingImageGui.setBackground(new Color(204, 255, 255));
 		jLblWorkingImageGui.setBounds(550, 21, 125, 182);
@@ -334,12 +337,12 @@ public class WorkingGui extends Gui {
 		txtPrivateLandlinePhoneGui.setColumns(10);
 		txtPrivateLandlinePhoneGui.setBounds(791, 23, 179, 25);
 		jPnlWorkingGui.add(txtPrivateLandlinePhoneGui);
-		
-				txtPrivateMobilPhoneGui = new JTextField();
-				txtPrivateMobilPhoneGui.setFont(new Font("Tahoma", Font.BOLD, 12));
-				txtPrivateMobilPhoneGui.setColumns(10);
-				txtPrivateMobilPhoneGui.setBounds(791, 54, 179, 25);
-				jPnlWorkingGui.add(txtPrivateMobilPhoneGui);
+
+		txtPrivateMobilPhoneGui = new JTextField();
+		txtPrivateMobilPhoneGui.setFont(new Font("Tahoma", Font.BOLD, 12));
+		txtPrivateMobilPhoneGui.setColumns(10);
+		txtPrivateMobilPhoneGui.setBounds(791, 54, 179, 25);
+		jPnlWorkingGui.add(txtPrivateMobilPhoneGui);
 
 		txtPrivateEmailGui = new JTextField();
 		txtPrivateEmailGui.setFont(new Font("Tahoma", Font.BOLD, 12));
@@ -554,6 +557,10 @@ public class WorkingGui extends Gui {
 		btnDeleteShowWorkingGui = new JButton("Null");
 		btnDeleteShowWorkingGui.setBounds(1009, 98, 113, 33);
 		jPnlWorkingGui.add(btnDeleteShowWorkingGui);
+
+		btnWorkingImage = new JButton("Feltöltés");
+		btnWorkingImage.setBounds(1009, 196, 113, 33);
+		jPnlWorkingGui.add(btnWorkingImage);
 	}
 
 	public static void iniComponent() {

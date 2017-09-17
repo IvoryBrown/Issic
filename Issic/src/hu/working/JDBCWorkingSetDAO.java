@@ -1,5 +1,9 @@
 package hu.working;
 
+import java.awt.Image;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,13 +13,17 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 
 import hu.working.gui.WorkingGui;
 
 @SuppressWarnings("serial")
 public class JDBCWorkingSetDAO extends WorkingGui implements WorkingDAO {
+	String ImgPath = null;
 
 	public JDBCWorkingSetDAO() {
 		setAction();
@@ -54,6 +62,11 @@ public class JDBCWorkingSetDAO extends WorkingGui implements WorkingDAO {
 				btnDeleteShowWorkingPerformed(evt);
 			}
 		});
+		btnWorkingImage.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				Btn_Choose_ImageActionPerformed(evt);
+			}
+		});
 	}
 
 	public boolean checkInputs() {
@@ -78,6 +91,20 @@ public class JDBCWorkingSetDAO extends WorkingGui implements WorkingDAO {
 		}
 	}
 
+	public ImageIcon ResizeImage(String imagePath, byte[] pic) {
+		ImageIcon myImage = null;
+		if (imagePath != null) {
+			myImage = new ImageIcon(imagePath);
+		} else {
+			myImage = new ImageIcon(pic);
+		}
+		Image img = myImage.getImage();
+		Image img2 = img.getScaledInstance(jLblWorkingImageGui.getWidth(), jLblWorkingImageGui.getHeight(),
+				Image.SCALE_SMOOTH);
+		ImageIcon image = new ImageIcon(img2);
+		return image;
+	}
+
 	@Override
 	public ArrayList<Working> getProductList() {
 		ArrayList<Working> productList = new ArrayList<Working>();
@@ -85,7 +112,8 @@ public class JDBCWorkingSetDAO extends WorkingGui implements WorkingDAO {
 		String query = "SELECT * FROM dolgozok " + "  JOIN lakcím ON Lakcím_Dolgozok_Dolgozo_ID = Dolgozo_ID "
 				+ " JOIN levcím ON Levcím_Dolgozok_Dolgozo_ID = Dolgozo_ID "
 				+ " JOIN szervezet ON Szervezet_Dolgozok_Dolgozo_ID = Dolgozo_ID"
-				+ " JOIN okmányok ON Okmány_Dolgozok_Dolgozo_ID = Dolgozo_ID";
+				+ " JOIN okmányok ON Okmány_Dolgozok_Dolgozo_ID = Dolgozo_ID"
+				+ " JOIN image ON Image_Dolgozok_Dolgozo_ID = Dolgozo_ID";
 		Statement st;
 		ResultSet rs;
 		try {
@@ -102,7 +130,8 @@ public class JDBCWorkingSetDAO extends WorkingGui implements WorkingDAO {
 						rs.getString("Kilépés_dátuma"), rs.getString("Beosztás"), rs.getString("Osztály"),
 						rs.getString("Tevékenység"), rs.getString("Üzlei_telefon"), rs.getString("Üzleti_mobil"),
 						rs.getString("Üzleti_email"), rs.getInt("Taj_szám"), rs.getString("Sz_ig_szám"),
-						rs.getInt("Adoazonosító"), rs.getString("Vezetői_engedély"), rs.getString("Útlevél"));
+						rs.getInt("Adoazonosító"), rs.getString("Vezetői_engedély"), rs.getString("Útlevél"),
+						rs.getBytes("image"));
 				productList.add(product);
 			}
 		} catch (SQLException ex) {
@@ -153,6 +182,23 @@ public class JDBCWorkingSetDAO extends WorkingGui implements WorkingDAO {
 		txtTaxIDWorkingGui.setText(Integer.toString(getProductList().get(index).getTaxID()));
 		txtDrivingLicenseWorkingGui.setText(getProductList().get(index).getDrivingLicense());
 		txtPassportWorkingGui.setText(getProductList().get(index).getPassport());
+		jLblWorkingImageGui.setIcon(ResizeImage(null, getProductList().get(index).getPicture()));
+	}
+
+	private void Btn_Choose_ImageActionPerformed(java.awt.event.ActionEvent evt) {
+		JFileChooser file = new JFileChooser();
+		file.setCurrentDirectory(new File(System.getProperty("user.home")));
+		FileNameExtensionFilter filter = new FileNameExtensionFilter("*.images", "jpg", "png");
+		file.addChoosableFileFilter(filter);
+		int result = file.showSaveDialog(null);
+		if (result == JFileChooser.APPROVE_OPTION) {
+			File selectedFile = file.getSelectedFile();
+			String path = selectedFile.getAbsolutePath();
+			jLblWorkingImageGui.setIcon(ResizeImage(path, null));
+			ImgPath = path;
+		} else {
+			System.out.println("Nincs fájl kiválasztva");
+		}
 	}
 
 	private void jBtnInsertActionPerformed(java.awt.event.ActionEvent evt) {
@@ -212,15 +258,25 @@ public class JDBCWorkingSetDAO extends WorkingGui implements WorkingDAO {
 				insertDocuments.setString(4, txtTaxIDWorkingGui.getText());
 				insertDocuments.setString(5, txtDrivingLicenseWorkingGui.getText());
 				insertDocuments.setString(6, txtPassportWorkingGui.getText());
+
+				PreparedStatement insertImage = con
+						.prepareStatement("INSERT INTO Image(Image_Dolgozok_Dolgozo_ID,Image)" + "values(?,?) ");
+				insertImage.setString(1, txtIDGui.getText());
+				InputStream img = new FileInputStream(new File(ImgPath));
+				insertImage.setBlob(2, img);
+
 				insertWorking.executeUpdate();
 				insertWorkingHomeAddress.executeUpdate();
 				insertMailingAddress.executeUpdate();
 				insertOrganization.executeUpdate();
 				insertDocuments.executeUpdate();
+				insertImage.executeUpdate();
 				Show_Products_In_JTable();
 				JOptionPane.showMessageDialog(null, "Adatok beillesztve");
 			} catch (SQLException ex) {
 				JOptionPane.showMessageDialog(null, "Sikertelen beillesztés: " + ex.getMessage());
+			} catch (Exception ex) {
+				JOptionPane.showMessageDialog(null, "Sikertelen kép beillesztés: " + ex.getMessage());
 			}
 		} else {
 			JOptionPane.showMessageDialog(null, "Egy vagy több mező üres");
@@ -402,5 +458,6 @@ public class JDBCWorkingSetDAO extends WorkingGui implements WorkingDAO {
 		txtTaxIDWorkingGui.setText(null);
 		txtDrivingLicenseWorkingGui.setText(null);
 		txtPassportWorkingGui.setText(null);
+		jLblWorkingImageGui.setIcon(null);
 	}
 }

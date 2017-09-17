@@ -92,11 +92,11 @@ public class WorkingGui extends Gui {
 	private JLabel jLblTaxIDWorkingGui;
 	private JLabel jLblDrivingLicenseWorkingGui;
 	private JLabel jLblPassportWorkingGui;
-	private JTextField txtIDCardWorkingGui;
-	private JTextField txtHealthCardWorkingGui;
-	private JTextField txtTaxIDWorkingGui;
-	private JTextField txtDrivingLicenseWorkingGui;
-	private JTextField txtPassportWorkingGui;
+	protected JTextField txtIDCardWorkingGui;
+	protected JTextField txtHealthCardWorkingGui;
+	protected JTextField txtTaxIDWorkingGui;
+	protected JTextField txtDrivingLicenseWorkingGui;
+	protected JTextField txtPassportWorkingGui;
 	protected JTextField txtGenderGui;
 
 	public WorkingGui() {
@@ -117,8 +117,8 @@ public class WorkingGui extends Gui {
 		jLblWorkingGui.setBounds(243, 5, 449, 205);
 		jPnlWorkingGui.add(jLblWorkingGui);
 		a = BorderFactory.createLineBorder(Color.DARK_GRAY);
-		a = BorderFactory.createTitledBorder(a, "Partner adatok", TitledBorder.LEFT, TitledBorder.TOP);
-		jLblWorkingGui.setBorder(new TitledBorder(new LineBorder(new Color(64, 64, 64)), "Partner adatok",
+		a = BorderFactory.createTitledBorder(a, " ", TitledBorder.LEFT, TitledBorder.TOP);
+		jLblWorkingGui.setBorder(new TitledBorder(new LineBorder(new Color(64, 64, 64)), "Dolgozói adatok",
 				TitledBorder.LEFT, TitledBorder.TOP, null, new Color(0, 0, 255)));
 
 		jLblWorkingImageGui = new JLabel();

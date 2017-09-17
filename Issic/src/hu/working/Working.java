@@ -12,12 +12,8 @@ public class Working {
 			String wCuntry, String wSettlement, String wTitle, Integer wLetterZipCode, String wLetterCuntry,
 			String wLetterSettlement, String wLetterTitle, String wAddDate, String wExitDate, String wPost,
 			String wClassWorking, String wActivity, String wOganizationLandlinePhone, String wOganizationMobilPhone,
-			String wOanizationEmail
-	// String wIDCard, Integer wHealthCard,
-	// Integer
-	// wTaxID, String wDivingLicense,
-	// String wPassport
-	) {
+			String wOanizationEmail, Integer wHealthCard, String wIDCard, Integer wTaxID, String wDivingLicense,
+			String wPassport) {
 		this.workingID = wWorkingId;
 		this.workingName = wWorkingName;
 		this.maidenName = wMaidenName;
@@ -43,11 +39,11 @@ public class Working {
 		this.oganizationLandlinePhone = wOganizationLandlinePhone;
 		this.oganizationMobilPhone = wOganizationMobilPhone;
 		this.oganizationEmail = wOanizationEmail;
-		// this.healthCard = wHealthCard;
-		// this.taxID = wTaxID;
-		// this.iDCard = wIDCard;
-		// this.drivingLicense = wDivingLicense;
-		// this.passport = wPassport;
+		this.healthCard = wHealthCard;
+		this.iDCard = wIDCard;
+		this.taxID = wTaxID;
+		this.drivingLicense = wDivingLicense;
+		this.passport = wPassport;
 	}
 
 	public Integer getWorkingID() {
